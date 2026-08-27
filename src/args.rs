@@ -208,6 +208,71 @@ pub struct Args {
     #[arg(long, hide = true)]
     pub benchmark: bool,
 
+<<<<<<< HEAD
+=======
+    /// Override the Overpass API endpoint(s) used to fetch OSM data.
+    /// Comma-separated list, in priority order. When set, this list is
+    /// used INSTEAD of the public Overpass mirror pool — useful for
+    /// pointing Arnis at a self-hosted Overpass instance to bypass
+    /// public rate limits during large batch generation.
+    ///
+    /// Example: --overpass-url http://localhost:12345/api/interpreter
+    /// Example: --overpass-url http://lan-host:12345/api/interpreter,https://overpass-api.de/api/interpreter
+    ///
+    /// Upstream-friendly improvement: this is purely additive — when
+    /// the flag is omitted, Arnis behaves exactly as before. Safe to
+    /// upstream for users running batch jobs against private mirrors.
+    #[arg(long = "overpass-url", value_delimiter = ',')]
+    pub overpass_url: Vec<String>,
+
+    /// Road rendering detail level. Controls how OSM highway features
+    /// are simplified at low scale (block resolution > 1 m) where
+    /// footways/crosswalks/lane-dividers/multi-lane widths stack onto
+    /// the same blocks and produce checker noise at intersections.
+    ///
+    ///   max     (default) — render every highway exactly as upstream
+    ///                       Arnis does.
+    ///   clean             — visual-cleanup pass for scale ≥ 0.7.
+    ///   compact           — vehicle-grade highways only, lanes capped.
+    ///
+    /// Upstream-friendly: when omitted, behaviour identical to upstream
+    /// (max). Multi-tile schedulers (Meld) auto-select `compact` at
+    /// scale<0.7 and `clean` at scale≥0.7.
+    #[arg(long = "road-detail", default_value = "max",
+          value_parser = ["max", "clean", "compact"])]
+    pub road_detail: String,
+
+    /// River bed profile.
+    ///
+    ///   off  (default) — legacy terraced bed; byte-identical output.
+    ///   v1             — OSM-tagged rivers (waterway=river/stream/canal
+    ///                    ways, water=river polygons, riverbanks) get a
+    ///                    smooth width-scaled U profile: soft banks, rounded
+    ///                    bottom, no dunes or bank wobble.
+    ///
+    /// RIVERS ONLY — lake and coastline beds are untouched, and a river
+    /// blends into them instead of stepping. Versioned: any future retune of
+    /// the profile tables ships as `v2`, never as a changed `v1`, so a world
+    /// generated with `v1` is reproducible forever.
+    #[arg(long = "river-bed", default_value = "off",
+          value_parser = ["off", "v1"])]
+    pub river_bed: String,
+
+    /// Road longitudinal grading.
+    ///
+    ///   off  (default) — legacy cross-section-only flattening;
+    ///                    byte-identical output.
+    ///   on             — each road is graded along its length with a
+    ///                    slope-limited profile (per-class max grade), so
+    ///                    surfaces climb in evenly spaced ramps instead of
+    ///                    following terrain contour steps. Junction Ys are
+    ///                    pinned so crossing roads agree, and road-surface
+    ///                    overrides fold by min-Y so results are order-free.
+    #[arg(long = "road-grade", default_value = "off",
+          value_parser = ["off", "on"])]
+    pub road_grade: String,
+
+>>>>>>> 3f30582a (feat(quality): --river-bed and --road-grade flags (both default off))
     /// Bake per-chunk lighting so distant chunks render lit in LOD mods
     /// (Voxy/Chunky) without visiting them. Slower; off by default.
     #[arg(long, default_value_t = false)]

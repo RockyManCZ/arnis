@@ -1746,6 +1746,8 @@ fn gui_start_generation(
                 disable_height_limit,
                 aws_only_elevation,
                 benchmark: false,
+                river_bed: "off".to_string(),
+                road_grade: "off".to_string(),
                 bake_lighting: bake_lighting_enabled,
                 voxy_lod: voxy_lod_enabled,
                 gamemode: crate::args::GameMode::from_str_lossy(&gamemode),
