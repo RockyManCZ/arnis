@@ -2062,7 +2062,7 @@ impl BuildingCategory {
             }
 
             // Commercial/retail
-            "commercial" | "retail" | "supermarket" | "kiosk" | "shop" => {
+            "commercial" | "retail" | "supermarket" | "kiosk" | "shop" | "restaurant" => {
                 BuildingCategory::Commercial
             }
 
@@ -2106,6 +2106,16 @@ impl BuildingCategory {
 
             // Public/civic (map to appropriate institutional)
             "public" | "government" | "civic" => BuildingCategory::School, // Use school style for generic institutional
+
+            // Amenity tags identify storefronts even when the building outline
+            // itself only says `building=yes`.
+            _ if matches!(
+                element.tags.get("amenity").map(String::as_str),
+                Some("restaurant")
+            ) =>
+            {
+                BuildingCategory::Commercial
+            }
 
             // Default for unknown types
             _ => BuildingCategory::Default,
