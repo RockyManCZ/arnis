@@ -482,7 +482,7 @@ pub fn themed_chest_loot(
         let mut item_nbt = HashMap::new();
         item_nbt.insert("id".to_string(), Value::String(item.id.to_string()));
         item_nbt.insert("Slot".to_string(), Value::Byte(slot as i8));
-        item_nbt.insert("count".to_string(), Value::Int(count));
+        item_nbt.insert("Count".to_string(), Value::Byte(count as i8));
         out.push(item_nbt);
     }
 
