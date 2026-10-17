@@ -208,7 +208,6 @@ pub struct Args {
     #[arg(long, hide = true)]
     pub benchmark: bool,
 
-
     /// Override the Overpass API endpoint(s) used to fetch OSM data.
     /// Comma-separated list, in priority order. When set, this list is
     /// used INSTEAD of the public Overpass mirror pool — useful for

@@ -680,7 +680,7 @@ pub fn generate_highways(
     tunnel_cells: &mut Vec<HighwayTunnelCell>,
     markings: &RoadMarkingIndex,
 ) {
-// Publish the flag to the override-fold semantics in `world_editor`. Here
+    // Publish the flag to the override-fold semantics in `world_editor`. Here
     // rather than at the render entry point because highway processing is the
     // only writer of the road-override map, so this necessarily runs before
     // the first `register_road_surface_y` and before any tile merge, on every
@@ -5147,7 +5147,7 @@ mod tests {
         ))
     }
 
-fn kept_ids(elements: &[ProcessedElement]) -> Vec<u64> {
+    fn kept_ids(elements: &[ProcessedElement]) -> Vec<u64> {
         elements.iter().map(|e| e.id()).collect()
     }
 
