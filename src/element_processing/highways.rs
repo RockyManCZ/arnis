@@ -532,10 +532,10 @@ fn compute_road_profile(
         .zip(road_grade_node_stations(&way.nodes).iter())
     {
         if tds < base.len()
-                && connectivity
-                    .get(&(node.x, node.z))
-                    .is_some_and(|ways| ways.len() > 1)
-            {
+            && connectivity
+                .get(&(node.x, node.z))
+                .is_some_and(|ways| ways.len() > 1)
+        {
             if let Some(pin) = grade_junction_pin(editor, node.x, node.z) {
                 pins.insert(tds, pin);
             }
