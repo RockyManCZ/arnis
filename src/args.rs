@@ -208,8 +208,7 @@ pub struct Args {
     #[arg(long, hide = true)]
     pub benchmark: bool,
 
-<<<<<<< HEAD
-=======
+
     /// Override the Overpass API endpoint(s) used to fetch OSM data.
     /// Comma-separated list, in priority order. When set, this list is
     /// used INSTEAD of the public Overpass mirror pool — useful for
@@ -272,7 +271,6 @@ pub struct Args {
           value_parser = ["off", "on"])]
     pub road_grade: String,
 
->>>>>>> 3f30582a (feat(quality): --river-bed and --road-grade flags (both default off))
     /// Bake per-chunk lighting so distant chunks render lit in LOD mods
     /// (Voxy/Chunky) without visiting them. Slower; off by default.
     #[arg(long, default_value_t = false)]
