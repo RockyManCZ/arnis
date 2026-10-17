@@ -1748,6 +1748,8 @@ fn gui_start_generation(
                 benchmark: false,
                 river_bed: "off".to_string(),
                 road_grade: "off".to_string(),
+                overpass_url: Vec::new(),
+                road_detail: "max".to_string(),
                 bake_lighting: bake_lighting_enabled,
                 voxy_lod: voxy_lod_enabled,
                 gamemode: crate::args::GameMode::from_str_lossy(&gamemode),

@@ -321,7 +321,7 @@ fn grade_strip_median(
         } else {
             (station.x + t, station.z)
         };
-        ys[i] = editor.terrain_level_f64(sx, sz)?;
+        ys[i] = editor.terrain_level(sx, sz) as f64;
     }
     ys[..len].sort_by(f64::total_cmp);
     Some(ys[len / 2])
@@ -339,7 +339,7 @@ fn grade_junction_pin(editor: &WorldEditor, x: i32, z: i32) -> Option<f64> {
     let mut i = 0;
     for dx in -1..=1 {
         for dz in -1..=1 {
-            ys[i] = editor.terrain_level_f64(x + dx, z + dz)?;
+            ys[i] = editor.terrain_level(x + dx, z + dz) as f64;
             i += 1;
         }
     }
@@ -531,7 +531,7 @@ fn compute_road_profile(
         .iter()
         .zip(road_grade_node_stations(&way.nodes).iter())
     {
-        if tds < base.len() && connectivity.is_junction((node.x, node.z)) {
+        if tds < base.len() && connectivity.get(&(node.x, node.z)).is_some_and(|ways| ways.len() > 1) {
             if let Some(pin) = grade_junction_pin(editor, node.x, node.z) {
                 pins.insert(tds, pin);
             }
