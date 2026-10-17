@@ -321,7 +321,7 @@ fn grade_strip_median(
         } else {
             (station.x + t, station.z)
         };
-        ys[i] = editor.terrain_level(sx, sz) as f64;
+        ys[i] = editor.terrain_level(sx, sz)? as f64;
     }
     ys[..len].sort_by(f64::total_cmp);
     Some(ys[len / 2])
@@ -339,7 +339,7 @@ fn grade_junction_pin(editor: &WorldEditor, x: i32, z: i32) -> Option<f64> {
     let mut i = 0;
     for dx in -1..=1 {
         for dz in -1..=1 {
-            ys[i] = editor.terrain_level(x + dx, z + dz) as f64;
+            ys[i] = editor.terrain_level(x + dx, z + dz)? as f64;
             i += 1;
         }
     }
